@@ -45,20 +45,42 @@ function orderByYear(array) {
       return movie1.year - movie2.year;
     }
   });
-  console.log("EXERCICE 4 ->", sortedMovies);
+  console.log("EXERCICE 5 ->", sortedMovies);
   return sortedMovies;
 }
 
 // Exercise 6: Calculate the average of the movies in a category
-function moviesAverageByCategory() {
-
+function moviesAverageByCategory(array, genre) {
+  let moviesGenre = array.filter(filmGenre => filmGenre.genre.includes(genre) && filmGenre.score != 0);
+  let ScoreGenre = moviesGenre.map(n => n.score);
+  let scoreSum = ScoreGenre.reduce((previous, current) => previous + current);
+  let average = parseFloat((scoreSum / ScoreGenre.length).toFixed(2));
+  console.log("EXERCICE 5 ->", average);
+  return average;
 }
 
 // Exercise 7: Modify the duration of movies to minutes
-function hoursToMinutes() {
-
+function hoursToMinutes(array) {
+  let hours = array.map(film => film.duration.split("h"));
+  
+  const minutes = [];
+  hours.forEach(element => {
+    const minDuration = [];
+    if (element.length > 1 && element[1].includes("min")){
+      minDuration.duration = Number(element[0]*60) + Number(element[1].replace("min", ""));
+    } else if (element[1].includes("min")){
+      minDuration.duration =  Number(element[0].replace("min", ""))
+    } else {
+      minDuration.duration = Number(element[0]*60)
+    }
+    minutes.push(minDuration.duration)
+    //console.log(minutes)
+  });
+  console.log(minutes)
+  return minutes;
+  
 }
-
+  
 // Exercise 8: Get the best film of a year
 function bestFilmOfYear() {
   
@@ -81,3 +103,4 @@ if (typeof module !== 'undefined') {
   };
 }
 
+//hoursToMinutes(movies)
